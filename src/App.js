@@ -1,14 +1,25 @@
+import React, { useState } from "react";
+
 import Button from "@material-ui/core/Button";
 import { Container } from "@material-ui/core";
-import React from "react";
 import TextField from "@material-ui/core/TextField";
 
 function App() {
+  const [result, setResult] = useState("");
+
   const submitHandler = (e) => {
     e.preventDefault();
     const city = e.target.city.value;
-    console.log(city);
+    makeApiCall(city);
   };
+
+  async function makeApiCall(city) {
+    let resp = await fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}&code=US-OR`
+    );
+    const jsonResp = await resp.json();
+    setResult(jsonResp);
+  }
 
   return (
     <div className="App">
@@ -25,6 +36,8 @@ function App() {
             send!
           </Button>
         </form>
+
+        <div>{console.log(result.main.temp)}</div>
       </Container>
     </div>
   );
