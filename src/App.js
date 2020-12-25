@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 import Button from "@material-ui/core/Button";
-import { Container } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
 function App() {
@@ -22,9 +23,16 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Container maxWidth="lg" style={{ backgroundColor: "pink" }}>
+    <Grid
+      container
+      spacing={5}
+      style={{ backgroundColor: "pink", flexGrow: 1, textAlign: "center" }}
+    >
+      <Grid item xs={12}>
         <h4>Weather</h4>
+      </Grid>
+
+      <Grid item xs={12}>
         <form onSubmit={submitHandler}>
           <TextField
             id="city"
@@ -32,14 +40,20 @@ function App() {
             variant="outlined"
             name="city"
           />
-          <Button type="submit" color="primary">
-            send!
-          </Button>
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              variant="outlined"
+              style={{ margin: "0.5rem" }}
+            >
+              send!
+            </Button>
+          </Grid>
         </form>
+      </Grid>
 
-        <div>{console.log(result.main.temp)}</div>
-      </Container>
-    </div>
+      <div>{console.log(result)}</div>
+    </Grid>
   );
 }
 
