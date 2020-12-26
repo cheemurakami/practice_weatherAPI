@@ -22,6 +22,17 @@ function App() {
     setResult(jsonResp);
   }
 
+  const weatherDisplay = () => {
+    if (result !== "") {
+      const main = result.weather[0].main;
+      return (
+        <Grid item xs={12}>
+          <p>{main}</p>
+        </Grid>
+      );
+    }
+  };
+
   return (
     <Grid
       container
@@ -29,7 +40,7 @@ function App() {
       style={{ backgroundColor: "pink", flexGrow: 1, textAlign: "center" }}
     >
       <Grid item xs={12}>
-        <h4>Weather</h4>
+        <h3>Weather</h3>
       </Grid>
 
       <Grid item xs={12}>
@@ -51,8 +62,7 @@ function App() {
           </Grid>
         </form>
       </Grid>
-
-      <div>{console.log(result)}</div>
+      {weatherDisplay()}
     </Grid>
   );
 }
