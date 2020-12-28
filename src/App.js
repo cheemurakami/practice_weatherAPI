@@ -13,7 +13,7 @@ function App() {
     e.preventDefault();
     const city = e.target.city.value;
     makeApiCallWeatherNow(city);
-    makeApiCallWeather5Days(city)
+    makeApiCallWeather5Days(city);
   };
 
   async function makeApiCallWeatherNow(city) {
@@ -23,18 +23,23 @@ function App() {
     const jsonResp = await resp.json();
     setResult(jsonResp);
   }
-  
+
   async function makeApiCallWeather5Days(city) {
     let resp = await fetch(
       `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.REACT_APP_API_KEY}`
     );
     const jsonResp = await resp.json();
-    setFiveDaysResult(jsonResp);
+    const fiveDaysWeatherList = jsonResp.list;
+    let fiveDaysWeather = [];
+    for (let i = 0; i < 5; i++) {
+      fiveDaysWeather.push(fiveDaysWeatherList[i * 8]);
+    }
+    setFiveDaysResult(fiveDaysWeather);
   }
 
   const weatherDisplay = () => {
     if (result !== "") {
-      console.log(fiveDaysResult)
+      console.log(fiveDaysResult);
       const main = result.weather[0].main;
       const description = result.weather[0].description;
       return (
