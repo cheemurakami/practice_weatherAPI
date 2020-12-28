@@ -7,28 +7,46 @@ import TextField from "@material-ui/core/TextField";
 
 function App() {
   const [result, setResult] = useState("");
+  const [fiveDaysResult, setFiveDaysResult] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
     const city = e.target.city.value;
-    makeApiCall(city);
+    makeApiCallWeatherNow(city);
+    makeApiCallWeather5Days(city)
   };
 
-  async function makeApiCall(city) {
+  async function makeApiCallWeatherNow(city) {
     let resp = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}&code=US-OR`
+      `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}`
     );
     const jsonResp = await resp.json();
     setResult(jsonResp);
   }
+  
+  async function makeApiCallWeather5Days(city) {
+    let resp = await fetch(
+      `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.REACT_APP_API_KEY}`
+    );
+    const jsonResp = await resp.json();
+    setFiveDaysResult(jsonResp);
+  }
 
   const weatherDisplay = () => {
     if (result !== "") {
+      console.log(fiveDaysResult)
       const main = result.weather[0].main;
+      const description = result.weather[0].description;
       return (
-        <Grid item xs={12}>
-          <p>{main}</p>
-        </Grid>
+        <React.Fragment>
+          <Grid item xs={12}>
+            <p>{main}</p>
+            <p>{description}</p>
+          </Grid>
+          <Grid item xs={12}>
+            {console.log(fiveDaysResult)}
+          </Grid>
+        </React.Fragment>
       );
     }
   };
