@@ -51,6 +51,13 @@ function App() {
           <Grid item xs={12}>
             {console.log(fiveDaysResult)}
           </Grid>
+          {fiveDaysResult.map((result) => {
+            return (
+              <Grid item xs={12}>
+                {result.weather[0].description}
+              </Grid>
+            );
+          })}
         </React.Fragment>
       );
     }
