@@ -38,8 +38,7 @@ function App() {
   }
 
   const weatherDisplay = () => {
-    if (result !== "") {
-      console.log(fiveDaysResult);
+    if (result !== "" && fiveDaysResult !== "") {
       const main = result.weather[0].main;
       const description = result.weather[0].description;
       return (
@@ -48,16 +47,31 @@ function App() {
             <p>{main}</p>
             <p>{description}</p>
           </Grid>
-          <Grid item xs={12}>
-            {console.log(fiveDaysResult)}
+          <Grid item xs={12}></Grid>
+
+          <Grid
+            style={{ display: "flex", justifyContent: "center", width: "100%" }}
+          >
+            {fiveDaysResult.map((result) => {
+              return (
+                <Grid
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: "10px",
+                    padding: "10px",
+                  }}
+                >
+                  <Grid item xs={12} key={result}>
+                    {result.dt_txt.split(" ")[0]}
+                  </Grid>
+                  <Grid item xs={12} key={result}>
+                    {result.weather[0].description}
+                  </Grid>
+                </Grid>
+              );
+            })}
           </Grid>
-          {fiveDaysResult.map((result) => {
-            return (
-              <Grid item xs={12}>
-                {result.weather[0].description}
-              </Grid>
-            );
-          })}
         </React.Fragment>
       );
     }
