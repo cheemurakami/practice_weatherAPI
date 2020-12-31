@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField";
 function App() {
   const [result, setResult] = useState("");
   const [fiveDaysResult, setFiveDaysResult] = useState("");
+  const [tempF, setTempF] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -41,11 +42,13 @@ function App() {
     if (result !== "" && fiveDaysResult !== "") {
       const main = result.weather[0].main;
       const description = result.weather[0].description;
+      const temparature = result.main.temp;
       return (
         <React.Fragment>
           <Grid item xs={12}>
             <p>{main}</p>
             <p>{description}</p>
+            <p>{temparature}</p>
           </Grid>
           <Grid item xs={12}></Grid>
 
