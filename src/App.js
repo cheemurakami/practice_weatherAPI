@@ -52,9 +52,10 @@ function App() {
           <Grid
             style={{ display: "flex", justifyContent: "center", width: "100%" }}
           >
-            {fiveDaysResult.map((result) => {
+            {fiveDaysResult.map((result, index) => {
               return (
                 <Grid
+                  key={index}
                   style={{
                     justifyContent: "center",
                     alignItems: "center",
@@ -62,10 +63,10 @@ function App() {
                     padding: "10px",
                   }}
                 >
-                  <Grid item xs={12} key={result}>
+                  <Grid item xs={12}>
                     {result.dt_txt.split(" ")[0]}
                   </Grid>
-                  <Grid item xs={12} key={result}>
+                  <Grid item xs={12}>
                     {result.weather[0].description}
                   </Grid>
                 </Grid>
