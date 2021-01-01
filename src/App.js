@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
+import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
@@ -46,9 +46,16 @@ function App() {
       return (
         <React.Fragment>
           <Grid item xs={12}>
-            <p>{main}</p>
-            <p>{description}</p>
-            <p>{temparature}</p>
+            <h3>{main}</h3>
+            <h4>{description}</h4>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <p>{temparature}</p>
+              <Chip
+                label="F"
+                style={{ margin: "8px" }}
+                onClick={() => console.log("CLICKED")}
+              />
+            </div>
           </Grid>
           <Grid item xs={12}></Grid>
 
