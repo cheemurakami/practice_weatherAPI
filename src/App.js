@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField";
 function App() {
   const [result, setResult] = useState("");
   const [fiveDaysResult, setFiveDaysResult] = useState("");
-  const [tempF, setTempF] = useState("");
+  const [useF, setUseF] = useState(true);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -38,22 +38,30 @@ function App() {
     setFiveDaysResult(fiveDaysWeather);
   }
 
+  const tempConversion = () => {
+    if (useF) {
+      return Math.round(((result.main.temp - 273.15) * 9) / 5 + 32);
+    } else {
+      return Math.round(result.main.temp - 273.15);
+    }
+  };
+
   const weatherDisplay = () => {
     if (result !== "" && fiveDaysResult !== "") {
       const main = result.weather[0].main;
       const description = result.weather[0].description;
-      const temparature = result.main.temp;
+
       return (
         <React.Fragment>
           <Grid item xs={12}>
             <h3>{main}</h3>
             <h4>{description}</h4>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <p>{temparature}</p>
+              <p>Temparature: {tempConversion()}</p>
               <Chip
-                label="F"
+                label={useF ? "F" : "C"}
                 style={{ margin: "8px" }}
-                onClick={() => console.log("CLICKED")}
+                onClick={() => setUseF(!useF)}
               />
             </div>
           </Grid>
