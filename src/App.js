@@ -53,7 +53,17 @@ function App() {
 
       return (
         <React.Fragment>
-          <Grid item xs={12}>
+          <Grid
+            style={{
+              margin: "10px",
+              padding: "10px",
+              width: 500,
+              borderWidth: 1,
+              backgroundColor: "white",
+            }}
+            item
+            xs={12}
+          >
             <h3>{main}</h3>
             <h4>{description}</h4>
             <div style={{ display: "flex", justifyContent: "center" }}>
@@ -64,6 +74,9 @@ function App() {
                 onClick={() => setUseF(!useF)}
               />
             </div>
+            <Button variant="outlined" style={{ margin: "0.5rem" }}>
+              get link
+            </Button>
           </Grid>
           <Grid item xs={12}></Grid>
 
@@ -103,7 +116,7 @@ function App() {
     <Grid
       container
       spacing={5}
-      style={{ backgroundColor: "pink", flexGrow: 1, textAlign: "center" }}
+      style={{ backgroundColor: "pink", flex: 1, textAlign: "center" }}
     >
       <Grid item xs={12}>
         <h3>Weather</h3>
