@@ -38,7 +38,7 @@ function App() {
     setFiveDaysResult(fiveDaysWeather);
   }
 
-  const tempConversion = () => {
+  const tempConversion = (result) => {
     if (useF) {
       return Math.round(((result.main.temp - 273.15) * 9) / 5 + 32);
     } else {
@@ -57,7 +57,7 @@ function App() {
             <h3>{main}</h3>
             <h4>{description}</h4>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <p>Temparature: {tempConversion()}</p>
+              <p>Temparature: {tempConversion(result)}</p>
               <Chip
                 label={useF ? "F" : "C"}
                 style={{ margin: "8px" }}
@@ -86,6 +86,9 @@ function App() {
                   </Grid>
                   <Grid item xs={12}>
                     {result.weather[0].description}
+                  </Grid>
+                  <Grid item xs={12}>
+                    {tempConversion(result)}
                   </Grid>
                 </Grid>
               );
