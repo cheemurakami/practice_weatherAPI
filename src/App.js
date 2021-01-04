@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
 import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
@@ -6,15 +7,26 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
 function App() {
+  let { city } = useParams();
+  let history = useHistory();
   const [result, setResult] = useState("");
   const [fiveDaysResult, setFiveDaysResult] = useState("");
   const [useF, setUseF] = useState(true);
 
+  useEffect(() => {
+    if (city) {
+      makeApiCallWeatherNow(city);
+      makeApiCallWeather5Days(city);
+    }
+    return () => {};
+  }, []);
+
   const submitHandler = (e) => {
     e.preventDefault();
-    const city = e.target.city.value;
-    makeApiCallWeatherNow(city);
-    makeApiCallWeather5Days(city);
+    const inputCity = e.target.city.value;
+    makeApiCallWeatherNow(inputCity);
+    makeApiCallWeather5Days(inputCity);
+    history.push(`/${inputCity}`);
   };
 
   async function makeApiCallWeatherNow(city) {
@@ -78,34 +90,43 @@ function App() {
               get link
             </Button>
           </Grid>
-          <Grid item xs={12}></Grid>
 
           <Grid
-            style={{ display: "flex", justifyContent: "center", width: "100%" }}
+            style={{
+              width: "100%",
+            }}
           >
-            {fiveDaysResult.map((result, index) => {
-              return (
-                <Grid
-                  key={index}
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "10px",
-                    padding: "10px",
-                  }}
-                >
-                  <Grid item xs={12}>
-                    {result.dt_txt.split(" ")[0]}
+            <h4>5 days forecast</h4>
+            <Grid
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              {fiveDaysResult.map((result, index) => {
+                return (
+                  <Grid
+                    key={index}
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      margin: "10px",
+                      padding: "10px",
+                    }}
+                  >
+                    <Grid item xs={12}>
+                      {result.dt_txt.split(" ")[0]}
+                    </Grid>
+                    <Grid item xs={12}>
+                      {result.weather[0].description}
+                    </Grid>
+                    <Grid item xs={12}>
+                      {tempConversion(result)}
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12}>
-                    {result.weather[0].description}
-                  </Grid>
-                  <Grid item xs={12}>
-                    {tempConversion(result)}
-                  </Grid>
-                </Grid>
-              );
-            })}
+                );
+              })}
+            </Grid>
           </Grid>
         </React.Fragment>
       );
