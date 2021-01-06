@@ -6,9 +6,12 @@ import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import WeatherDisplay from "./WeatherDisplay";
+import { connect } from 'react-redux'
 
 const days = ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"];
-function App() {
+
+function App(props) {
+  const { dispatch } = props;
   let { city } = useParams();
   let history = useHistory();
   const [result, setResult] = useState("");
@@ -36,6 +39,7 @@ function App() {
       `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}`
     );
     const jsonResp = await resp.json();
+    
     setResult(jsonResp);
   }
 
@@ -177,4 +181,9 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  
+})
+
+export default connect(mapStateToProps)(App)
+

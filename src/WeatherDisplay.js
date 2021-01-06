@@ -1,11 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-function WeatherDisplay() {
+export const WeatherDisplay = (props) => {
   return (
     <div>
-      Hello
+      
     </div>
   )
 }
 
-export default WeatherDisplay
+const mapStateToProps = (state) => ({
+  
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(WeatherDisplay)

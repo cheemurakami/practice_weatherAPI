@@ -3,11 +3,17 @@ import "./index.css";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 import App from "./App";
+import { Provider } from 'react-redux'
 import React from "react";
 import ReactDOM from "react-dom";
+import { createStore } from 'redux';
 import reportWebVitals from "./reportWebVitals";
+import store from './store'
+
+const store = createStore(rootReducer);
 
 ReactDOM.render(
+  <Provider store={store}>
   <React.StrictMode>
     <Router>
       <Switch>
@@ -15,7 +21,8 @@ ReactDOM.render(
         <Route path="/" component={App}/>
       </Switch>
     </Router>
-  </React.StrictMode>,
+  </React.StrictMode>
+  </Provider>,
   document.getElementById("root")
 );
 
