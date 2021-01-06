@@ -6,6 +6,7 @@ import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
+const days = ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"];
 function App() {
   let { city } = useParams();
   let history = useHistory();
@@ -58,11 +59,15 @@ function App() {
     }
   };
 
+  const showDay = (dt) => {
+    return days[new Date(dt).getDay()];
+  };
+
   const weatherDisplay = () => {
     if (result !== "" && fiveDaysResult !== "") {
       const main = result.weather[0].main;
       const description = result.weather[0].description;
-
+      console.log(fiveDaysResult);
       return (
         <React.Fragment>
           <Grid
@@ -116,6 +121,9 @@ function App() {
                   >
                     <Grid item xs={12}>
                       {result.dt_txt.split(" ")[0]}
+                    </Grid>
+                    <Grid item xs={12}>
+                      {showDay(result.dt_txt.split(" ")[0])}
                     </Grid>
                     <Grid item xs={12}>
                       {result.weather[0].description}
