@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+import WeatherDisplay from "./WeatherDisplay";
 
 const days = ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"];
 function App() {
@@ -170,6 +171,7 @@ function App() {
           </Grid>
         </form>
       </Grid>
+      <WeatherDisplay />
       {weatherDisplay()}
     </Grid>
   );
