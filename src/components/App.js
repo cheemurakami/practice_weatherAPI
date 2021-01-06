@@ -1,3 +1,5 @@
+import * as a  from "../actions"
+
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
@@ -39,8 +41,9 @@ function App(props) {
       `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}`
     );
     const jsonResp = await resp.json();
-    
-    setResult(jsonResp);
+    const action = a.savedResult(jsonResp)
+    dispatch(action)
+    // setResult(jsonResp);
   }
 
   async function makeApiCallWeather5Days(city) {

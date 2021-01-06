@@ -1,1 +1,1 @@
-export const SAVED_RESULT"
+export const SAVED_RESULT = "SAVED_RESULT"

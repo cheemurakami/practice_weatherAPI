@@ -1,5 +1,5 @@
-import { combineReducers } from 'redweatherResultReducerux'
-import weatherResultReducer from './'
+import { combineReducers } from 'redux'
+import weatherResultReducer from './weatherResultReducer'
 
 const rootReducer = combineReducers(
   {
