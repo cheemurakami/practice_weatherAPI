@@ -1,22 +1,20 @@
-import * as a  from "../actions"
+import * as a from "../actions";
 
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
 import Button from "@material-ui/core/Button";
-import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import WeatherDisplay from "./WeatherDisplay";
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 
 const days = ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"];
 
 function App(props) {
-  const { dispatch } = props;
+  const { dispatch, result } = props;
   let { city } = useParams();
   let history = useHistory();
-  const [result, setResult] = useState("");
   const [fiveDaysResult, setFiveDaysResult] = useState("");
   const [useF, setUseF] = useState(true);
 
@@ -41,9 +39,8 @@ function App(props) {
       `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}`
     );
     const jsonResp = await resp.json();
-    const action = a.savedResult(jsonResp)
-    dispatch(action)
-    // setResult(jsonResp);
+    const action = a.savedResult(jsonResp);
+    dispatch(action);
   }
 
   async function makeApiCallWeather5Days(city) {
@@ -73,37 +70,9 @@ function App(props) {
 
   const weatherDisplay = () => {
     if (result !== "" && fiveDaysResult !== "") {
-      const main = result.weather[0].main;
-      const description = result.weather[0].description;
       console.log(fiveDaysResult);
       return (
         <React.Fragment>
-          <Grid
-            style={{
-              margin: "10px",
-              padding: "10px",
-              width: 500,
-              borderWidth: 1,
-              backgroundColor: "white",
-            }}
-            item
-            xs={12}
-          >
-            <h3>{main}</h3>
-            <h4>{description}</h4>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <p>Temparature: {tempConversion(result)}</p>
-              <Chip
-                label={useF ? "F" : "C"}
-                style={{ margin: "8px" }}
-                onClick={() => setUseF(!useF)}
-              />
-            </div>
-            <Button variant="outlined" style={{ margin: "0.5rem" }}>
-              get link
-            </Button>
-          </Grid>
-
           <Grid
             style={{
               width: "100%",
@@ -179,14 +148,11 @@ function App(props) {
         </form>
       </Grid>
       <WeatherDisplay />
-      {weatherDisplay()}
+      {/* {weatherDisplay()} */}
     </Grid>
   );
 }
 
-const mapStateToProps = (state) => ({
-  
-})
+const mapStateToProps = (state) => ({});
 
-export default connect(mapStateToProps)(App)
-
+export default connect(mapStateToProps)(App);
