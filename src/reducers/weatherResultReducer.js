@@ -7,6 +7,11 @@ export default (state = {}, action) => {
         ...state,
         result: action.result,
       };
+    case c.SAVED_FIVE_DAYS_RESULT:
+      return {
+        ...state,
+        fiveDaysResult: action.result,
+      };
     default:
       return state;
   }

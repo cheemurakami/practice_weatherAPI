@@ -6,3 +6,9 @@ export const savedResult = (result) => {
     result,
   } 
 }
+export const savedFiveDaysResult = (result) => {
+  return {
+    type: c.SAVED_FIVE_DAYS_RESULT,
+    result,
+  } 
+}

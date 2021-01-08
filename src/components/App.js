@@ -1,6 +1,6 @@
 import * as a from "../actions";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
 import Button from "@material-ui/core/Button";
@@ -9,14 +9,10 @@ import TextField from "@material-ui/core/TextField";
 import WeatherDisplay from "./WeatherDisplay";
 import { connect } from "react-redux";
 
-const days = ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"];
-
 function App(props) {
-  const { dispatch, result } = props;
+  const { dispatch } = props;
   let { city } = useParams();
   let history = useHistory();
-  const [fiveDaysResult, setFiveDaysResult] = useState("");
-  const [useF, setUseF] = useState(true);
 
   useEffect(() => {
     if (city) {
@@ -53,70 +49,9 @@ function App(props) {
     for (let i = 0; i < 5; i++) {
       fiveDaysWeather.push(fiveDaysWeatherList[i * 8]);
     }
-    setFiveDaysResult(fiveDaysWeather);
+    const action = a.savedFiveDaysResult(fiveDaysWeather);
+    dispatch(action);
   }
-
-  const tempConversion = (result) => {
-    if (useF) {
-      return Math.round(((result.main.temp - 273.15) * 9) / 5 + 32);
-    } else {
-      return Math.round(result.main.temp - 273.15);
-    }
-  };
-
-  const showDay = (dt) => {
-    return days[new Date(dt).getDay()];
-  };
-
-  const weatherDisplay = () => {
-    if (result !== "" && fiveDaysResult !== "") {
-      console.log(fiveDaysResult);
-      return (
-        <React.Fragment>
-          <Grid
-            style={{
-              width: "100%",
-            }}
-          >
-            <h4>5 days forecast</h4>
-            <Grid
-              style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              {fiveDaysResult.map((result, index) => {
-                return (
-                  <Grid
-                    key={index}
-                    style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      margin: "10px",
-                      padding: "10px",
-                    }}
-                  >
-                    <Grid item xs={12}>
-                      {result.dt_txt.split(" ")[0]}
-                    </Grid>
-                    <Grid item xs={12}>
-                      {showDay(result.dt_txt.split(" ")[0])}
-                    </Grid>
-                    <Grid item xs={12}>
-                      {result.weather[0].description}
-                    </Grid>
-                    <Grid item xs={12}>
-                      {tempConversion(result)}
-                    </Grid>
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </Grid>
-        </React.Fragment>
-      );
-    }
-  };
 
   return (
     <Grid
@@ -148,7 +83,6 @@ function App(props) {
         </form>
       </Grid>
       <WeatherDisplay />
-      {/* {weatherDisplay()} */}
     </Grid>
   );
 }

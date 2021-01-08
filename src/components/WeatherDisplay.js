@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
+import FiveDaysDisplay from "./FiveDaysDisplay";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 
@@ -50,11 +51,16 @@ export const WeatherDisplay = (props) => {
       );
     }
   };
-  return <>{showResult()}</>;
+  
+  return (
+    <>
+      {showResult()}
+      <FiveDaysDisplay />
+    </>
+  );
 };
 
 const mapStateToProps = (state) => {
-  console.log(state.weatherResultReducer.result);
   return {
     result: state.weatherResultReducer.result,
   };
