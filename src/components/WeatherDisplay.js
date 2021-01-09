@@ -51,11 +51,11 @@ export const WeatherDisplay = (props) => {
       );
     }
   };
-  
+
   return (
     <>
       {showResult()}
-      <FiveDaysDisplay />
+      <FiveDaysDisplay useF={useF} />
     </>
   );
 };
