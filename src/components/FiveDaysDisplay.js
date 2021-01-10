@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-
 import Grid from "@material-ui/core/Grid";
+import React from "react";
 import { connect } from "react-redux";
 
 const days = ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"];
@@ -9,7 +8,6 @@ export const FiveDaysDisplay = (props) => {
   const { fiveDaysResult, useF } = props;
 
   const tempConversion = (result) => {
-    console.log(useF);
     if (useF) {
       return Math.round(((result.main.temp - 273.15) * 9) / 5 + 32);
     } else {
